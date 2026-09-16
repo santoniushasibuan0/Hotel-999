@@ -1,0 +1,1 @@
+import './globals.css'; export const metadata={title:'Hotel 999 Batam — Hotel Management System',description:'Professional hotel operations prototype'}; export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>}
