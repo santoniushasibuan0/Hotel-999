@@ -1,5 +1,7 @@
 export const dynamic = "force-dynamic";
+
 import { supabase } from "@/lib/supabase";
+import RoomActions from "./room-actions";
 
 export default async function Rooms() {
   const { data: rooms, error } = await supabase
@@ -40,43 +42,59 @@ export default async function Rooms() {
       </div>
 
       <div className="card">
-        <table>
-          <thead>
-            <tr>
-              <th>Room</th>
-              <th>Type</th>
-              <th>Floor</th>
-              <th>Rate / night</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {rooms?.map((room) => (
-              <tr key={room.id}>
-                <td>
-                  <b>{room.room_number}</b>
-                </td>
-
-                <td>{room.room_type}</td>
-
-                <td>{room.floor}</td>
-
-                <td>
-                  Rp{" "}
-                  {Number(room.price_per_night).toLocaleString("id-ID")}
-                </td>
-
-                <td>
-                  <span className="badge">{room.status}</span>
-                </td>
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Room</th>
+                <th>Type</th>
+                <th>Floor</th>
+                <th>Rate / night</th>
+                <th>Status</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {rooms?.map((room) => (
+                <tr key={room.id}>
+                  <td>
+                    <b>{room.room_number}</b>
+                  </td>
+
+                  <td>{room.room_type}</td>
+
+                  <td>{room.floor}</td>
+
+                  <td>
+                    Rp{" "}
+                    {Number(
+                      room.price_per_night
+                    ).toLocaleString("id-ID")}
+                  </td>
+
+                  <td>
+                    <span className="badge">
+                      {room.status}
+                    </span>
+                  </td>
+
+                  <td>
+                    <RoomActions
+                      roomId={room.id}
+                      status={room.status}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         {(!rooms || rooms.length === 0) && (
-          <p className="muted">No rooms found.</p>
+          <div className="empty-state">
+            No rooms found.
+          </div>
         )}
       </div>
     </>
