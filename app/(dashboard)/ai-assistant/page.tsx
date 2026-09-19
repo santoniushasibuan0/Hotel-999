@@ -128,7 +128,7 @@ export default function AI() {
                 send();
               }
             }}
-            placeholder="Ask: How many rooms are available?"
+            placeholder=""
             disabled={loading}
           />
 
@@ -146,7 +146,7 @@ export default function AI() {
         className="muted"
         style={{ marginTop: 12 }}
       >
-        Live mode: UI → server-side AI API → Supabase hotel data → Gemini → response.
+        
       </div>
     </>
   );
